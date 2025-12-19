@@ -34,9 +34,8 @@ const config: Config = {
     locales: ['en'],
   },
 
-  // Custom fields for the RAG chatbot
+  // Custom fields
   customFields: {
-    ragChatbotApiUrl: process.env.RAG_CHATBOT_API_URL || 'http://localhost:8000', // Use environment variable or default
   },
 
   presets: [
@@ -73,15 +72,6 @@ const config: Config = {
   ],
 
   plugins: [
-    // Include the RAG chatbot plugin
-    async function myPlugin(context, options) {
-      return {
-        name: 'docusaurus-rag-chatbot',
-        clientModules: [
-          require.resolve('./src/client/modules/ragChatbotModule.js'),
-        ],
-      };
-    },
   ],
 
   themeConfig: {

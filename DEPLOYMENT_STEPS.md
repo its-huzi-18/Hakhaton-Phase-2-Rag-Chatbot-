@@ -28,13 +28,7 @@
 
 ## Step 4: Update Your Website Configuration
 
-1. **Open** `my-book/docusaurus.config.ts`
-2. **Find the customFields section** and update the API URL:
-   ```typescript
-   customFields: {
-     ragChatbotApiUrl: 'https://your-project-name.up.railway.app', // Replace with your actual URL
-   },
-   ```
+There's no need to update docusaurus.config.ts for the API URL anymore. The API URL will be configured as an environment variable in Vercel.
 
 ## Step 5: Deploy Frontend to Vercel
 

@@ -1,14 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './RAGChatbot.css';
 
-// Get API URL from Docusaurus config or environment
-const ragChatbotApiUrl =
-  typeof window !== 'undefined'
-    ? (window.RAG_CHATBOT_API_URL ||
-       (typeof process !== 'undefined' && process.env?.RAG_CHATBOT_API_URL) ||
-       'http://localhost:8000')
-    : 'http://localhost:8000';
-
 const RAGChatbot = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
@@ -17,6 +9,22 @@ const RAGChatbot = () => {
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef(null);
+
+  // Get API URL from environment or default
+  const [apiUrl, setApiUrl] = useState('http://localhost:8000');
+
+  useEffect(() => {
+    // Get the API URL from environment variable
+    if (typeof window !== 'undefined') {
+      // Try multiple methods to get the API URL
+      const url =
+        process.env.RAG_CHATBOT_API_URL ||
+        window.RAG_CHATBOT_API_URL ||
+        localStorage.getItem('RAG_CHATBOT_API_URL') ||
+        'http://localhost:8000';
+      setApiUrl(url);
+    }
+  }, []);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -35,7 +43,7 @@ const RAGChatbot = () => {
     setIsLoading(true);
 
     try {
-      const response = await fetch(`${ragChatbotApiUrl}/ask`, {
+      const response = await fetch(`${apiUrl}/ask`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
