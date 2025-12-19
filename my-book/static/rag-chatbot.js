@@ -1,13 +1,11 @@
-// Standalone chatbot script that will be injected into the page
-(function() {
+// Standalone chatbot script that will be loaded separately
+document.addEventListener('DOMContentLoaded', function() {
   // Only run once
-  if (window.RAGChatbotStandaloneLoaded) return;
-  window.RAGChatbotStandaloneLoaded = true;
+  if (window.RAGChatbotLoaded) return;
+  window.RAGChatbotLoaded = true;
 
   // Get API URL from various sources
-  const apiUrl = window.RAG_CHATBOT_API_URL ||
-                 (typeof process !== 'undefined' && process.env && process.env.RAG_CHATBOT_API_URL) ||
-                 'http://localhost:8000';
+  const apiUrl = window.RAG_CHATBOT_API_URL || 'http://localhost:8000';
 
   // Create the chatbot container
   const container = document.createElement('div');
@@ -266,4 +264,4 @@
 
   // Initialize
   scrollToBottom();
-})();
+});

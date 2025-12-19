@@ -73,6 +73,35 @@ const config: Config = {
   ],
 
   plugins: [
+    // Plugin to inject the chatbot script with proper API URL
+    function injectChatbotPlugin() {
+      return {
+        name: 'inject-chatbot',
+        injectHtmlTags() {
+          return {
+            postBodyTags: [
+              // Set the API URL as a script to make it available globally
+              {
+                tagName: 'script',
+                innerHTML: `
+                  window.RAG_CHATBOT_API_URL = "${
+                    process.env.RAG_CHATBOT_API_URL || 'http://localhost:8000'
+                  }";
+                `,
+              },
+              // Load the chatbot UI after the API URL is set
+              {
+                tagName: 'script',
+                attributes: {
+                  src: '/rag-chatbot.js',
+                  async: true,
+                },
+              }
+            ],
+          };
+        },
+      };
+    },
   ],
 
   themeConfig: {
