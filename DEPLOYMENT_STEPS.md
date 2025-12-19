@@ -47,7 +47,9 @@
    - Root Directory: `my-book`
    - Build Command: `npm run build`
    - Output Directory: `build`
-6. **Click "Deploy"**
+6. **Add Environment Variables** (click "Environment Variables" section):
+   - Key: `RAG_CHATBOT_API_URL`, Value: `https://your-railway-app.up.railway.app` (your actual Railway backend URL)
+7. **Click "Deploy"**
 
 ## Step 6: Process Your Book (One-time Setup)
 

@@ -72,15 +72,16 @@ const config: Config = {
     ],
   ],
 
-  // Add the RAG chatbot plugin
   plugins: [
     // Include the RAG chatbot plugin
-    [
-      '../rag-book-chatbot/docusaurus-plugin/index.js',
-      {
-        id: 'rag-chatbot-plugin',
-      }
-    ],
+    async function myPlugin(context, options) {
+      return {
+        name: 'docusaurus-rag-chatbot',
+        clientModules: [
+          require.resolve('./src/client/modules/ragChatbotModule.js'),
+        ],
+      };
+    },
   ],
 
   themeConfig: {
