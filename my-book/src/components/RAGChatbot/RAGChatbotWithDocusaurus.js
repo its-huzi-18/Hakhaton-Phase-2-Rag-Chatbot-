@@ -1,8 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { useDocusaurusContext } from '@docusaurus/core';
 import './RAGChatbot.css';
 
-const RAGChatbot = () => {
+// Separate component that uses Docusaurus context safely
+const RAGChatbotWithDocusaurus = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
     { id: 1, sender: 'assistant', text: 'Hello! I\'m your book assistant. Ask me anything about the book content!' }
@@ -11,22 +11,26 @@ const RAGChatbot = () => {
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef(null);
 
-  // Safely get the API URL from site config with fallback
-  const { siteConfig = {} } = useDocusaurusContext();
-  const [apiUrl, setApiUrl] = useState(() => {
-    // Initialize with a safe default and update after mount if siteConfig is available
-    if (typeof window !== 'undefined' && siteConfig?.customFields?.ragChatbotApiUrl) {
-      return siteConfig.customFields.ragChatbotApiUrl;
-    }
-    return 'http://localhost:8000';
-  });
+  // Dynamically import Docusaurus context to avoid SSR issues
+  const [apiUrl, setApiUrl] = useState('http://localhost:8000');
 
   useEffect(() => {
-    // Update the API URL after component mounts when siteConfig is definitely available
-    if (siteConfig?.customFields?.ragChatbotApiUrl) {
-      setApiUrl(siteConfig.customFields.ragChatbotApiUrl);
-    }
-  }, [siteConfig]);
+    // Dynamically load Docusaurus context after component mounts
+    const loadDocusaurusConfig = async () => {
+      try {
+        const { useDocusaurusContext } = await import('@docusaurus/core');
+        const context = useDocusaurusContext();
+        const config = context.siteConfig || {};
+        const url = (config.customFields && config.customFields.ragChatbotApiUrl) || 'http://localhost:8000';
+        setApiUrl(url);
+      } catch (error) {
+        // Fallback to default URL if Docusaurus context is not available
+        setApiUrl('http://localhost:8000');
+      }
+    };
+
+    loadDocusaurusConfig();
+  }, []);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -132,4 +136,4 @@ const RAGChatbot = () => {
   );
 };
 
-export default RAGChatbot;
+export default RAGChatbotWithDocusaurus;
