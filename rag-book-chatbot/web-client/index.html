@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book with RAG Chatbot Integration</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .book-content {
+            margin-bottom: 40px;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        .chatbot-integration-note {
+            background-color: #e7f3ff;
+            padding: 15px;
+            border-left: 4px solid #4f5cf5;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="book-content">
+        <h1>My Book Title</h1>
+        <h2>Chapter 1: Introduction to RAG Systems</h2>
+        <p>Retrieval-Augmented Generation (RAG) is a technique that combines the power of large language models with the ability to retrieve relevant information from external knowledge sources. This approach allows AI systems to provide more accurate and contextually relevant responses by grounding their answers in specific, retrieved information.</p>
+
+        <h2>Chapter 2: Vector Databases</h2>
+        <p>Vector databases like Qdrant are specialized databases designed to store and search vector embeddings efficiently. These embeddings represent the semantic meaning of text in high-dimensional space, allowing for semantic search that finds content based on meaning rather than exact keyword matches.</p>
+
+        <h2>Chapter 3: Implementation Strategies</h2>
+        <p>When implementing RAG systems, it's important to consider factors such as embedding models, chunking strategies, and retrieval methods. The quality of retrieved documents directly impacts the quality of the generated responses.</p>
+    </div>
+
+    <div class="chatbot-integration-note">
+        <p><strong>Note:</strong> The RAG chatbot is integrated into this page. Look for the chat window in the bottom-right corner of your screen.</p>
+    </div>
+
+    <!-- The RAG chatbot will be automatically added by the JavaScript client -->
+
+    <script src="rag-chatbot-client.js"></script>
+</body>
+</html>

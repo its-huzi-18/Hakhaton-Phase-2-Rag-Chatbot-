@@ -1,0 +1,16 @@
+This is a sample book for testing the RAG chatbot.
+
+Chapter 1: Introduction to RAG Systems
+RAG stands for Retrieval-Augmented Generation. It combines information retrieval with text generation to produce more accurate and contextually relevant responses.
+
+Chapter 2: How RAG Works
+The RAG system first retrieves relevant documents based on the user's query. Then, it uses these documents as context to generate a response. This ensures that the answers are grounded in actual data.
+
+Chapter 3: Benefits of RAG
+RAG systems provide more accurate answers by grounding them in real documents. They can handle out-of-domain queries better than traditional generative models.
+
+Chapter 4: Applications
+RAG systems are commonly used in question-answering systems, customer support, and document analysis.
+
+Chapter 5: Limitations
+While RAG systems are powerful, they depend heavily on the quality of the source documents. If the source material doesn't contain the answer, the system cannot generate it.
