@@ -36,6 +36,7 @@ const config: Config = {
 
   // Custom fields
   customFields: {
+    ragChatbotApiUrl: process.env.RAG_CHATBOT_API_URL || 'http://localhost:8000',
   },
 
   presets: [

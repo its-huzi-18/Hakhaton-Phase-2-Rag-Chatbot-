@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { useDocusaurusContext } from '@docusaurus/core';
 import './RAGChatbot.css';
 
 const RAGChatbot = () => {
@@ -10,21 +11,18 @@ const RAGChatbot = () => {
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef(null);
 
-  // Get API URL from environment or default
-  const [apiUrl, setApiUrl] = useState('http://localhost:8000');
+  const { siteConfig = {} } = useDocusaurusContext();
+  const [apiUrl, setApiUrl] = useState(
+    (siteConfig.customFields && siteConfig.customFields.ragChatbotApiUrl) ||
+    'http://localhost:8000'
+  );
 
   useEffect(() => {
-    // Get the API URL from environment variable
-    if (typeof window !== 'undefined') {
-      // Try multiple methods to get the API URL
-      const url =
-        process.env.RAG_CHATBOT_API_URL ||
-        window.RAG_CHATBOT_API_URL ||
-        localStorage.getItem('RAG_CHATBOT_API_URL') ||
-        'http://localhost:8000';
-      setApiUrl(url);
-    }
-  }, []);
+    // Update the API URL if it changes in the site config
+    const newApiUrl = (siteConfig.customFields && siteConfig.customFields.ragChatbotApiUrl) ||
+                      'http://localhost:8000';
+    setApiUrl(newApiUrl);
+  }, [siteConfig]);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });

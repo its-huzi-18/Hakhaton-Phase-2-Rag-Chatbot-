@@ -45,6 +45,8 @@ There's no need to update docusaurus.config.ts for the API URL anymore. The API 
    - Key: `RAG_CHATBOT_API_URL`, Value: `https://your-railway-app.up.railway.app` (your actual Railway backend URL)
 7. **Click "Deploy"**
 
+**Note:** The environment variable will be available during the build process and passed to the Docusaurus config.
+
 ## Step 6: Process Your Book (One-time Setup)
 
 1. **After Railway deployment**, you need to process your book PDF:
