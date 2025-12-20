@@ -86,7 +86,19 @@
       "Bash(npx docusaurus swizzle @docusaurus/theme-classic NavbarItem/DefaultNavbarItem --wrap)",
       "Bash(del \"D:\\\\Vs Code-All-Things\\\\Github Repo\\\\GPT\\\\my-book\\\\static\\\\img\\\\logo-navbar.svg\")",
       "Bash(cmd /c \"del \"\"D:\\\\Vs Code-All-Things\\\\Github Repo\\\\GPT\\\\my-book\\\\static\\\\img\\\\logo-navbar.svg\"\"\")",
-      "Bash(cmd /c \"del \"\"D:\\\\Vs Code-All-Things\\\\Github Repo\\\\GPT\\\\my-book\\\\static\\\\img\\\\favicon-new.svg\"\"\")"
+      "Bash(cmd /c \"del \"\"D:\\\\Vs Code-All-Things\\\\Github Repo\\\\GPT\\\\my-book\\\\static\\\\img\\\\favicon-new.svg\"\"\")",
+      "Bash(python -c \"import fastapi, uvicorn, cohere, qdrant_client; print\\(''Dependencies available''\\)\")",
+      "Bash(python -c \"import fastapi, uvicorn, cohere, qdrant_client, requests, bs4, pydantic; print\\(''All dependencies installed successfully''\\)\")",
+      "Bash(timeout 30s python -c \"from process_book import *; print\\(''Process book module loaded successfully''\\)\")",
+      "Bash(python process_book.py)",
+      "Bash(python start_api.py)",
+      "Bash(python test_api.py)",
+      "Bash(curl -X GET http://localhost:8000/health)",
+      "Bash(curl -X POST http://localhost:8000/query -H \"Content-Type: application/json\" -d \"{\"\"query\"\": \"\"What is this book about?\"\", \"\"top_k\"\": 3}\")",
+      "Bash(curl -X POST http://localhost:8000/query -H \"Content-Type: application/json\" -d \"{\"\"query\"\": \"\"What is this book about?\"\", \"\"top_k\"\": 1}\")",
+      "Bash(./doctor)",
+      "Bash(claude-code --help)",
+      "Skill(sp.tasks)"
     ],
     "deny": [],
     "ask": []
