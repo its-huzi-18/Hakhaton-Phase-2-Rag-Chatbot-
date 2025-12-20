@@ -63,13 +63,37 @@ This will crawl your book website and store the content in your Qdrant database.
    railway login
    ```
 
-3. **Navigate to backend directory and initialize**:
+3. **Navigate to backend directory and prepare**:
    ```bash
    cd backend
+
+   # Create Procfile for Railway
+   echo "web: uvicorn api:app --host=0.0.0.0 --port=\$PORT" > Procfile
+
+   # Create runtime specification
+   echo "python-3.11" > runtime.txt
+   ```
+
+4. **Fix dependency issues** (Important!):
+   If you're getting dependency conflicts during deployment, make sure your `railway_requirements.txt` file contains only the necessary dependencies:
+   ```
+   requests
+   beautifulsoup4
+   cohere
+   qdrant-client
+   python-dotenv
+   typing-extensions
+   fastapi
+   uvicorn[standard]
+   pydantic
+   ```
+
+5. **Initialize Railway project**:
+   ```bash
    railway init
    ```
 
-4. **Set environment variables**:
+6. **Set environment variables**:
    ```bash
    railway var set COHERE_API_KEY="your_cohere_api_key_here"
    railway var set QDRANT_URL="your_qdrant_url_here"
@@ -77,7 +101,7 @@ This will crawl your book website and store the content in your Qdrant database.
    railway var set TARGET_URL="https://your-book-website.com"
    ```
 
-5. **Deploy**:
+7. **Deploy**:
    ```bash
    railway up
    ```

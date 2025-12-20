@@ -107,7 +107,7 @@ railway up
 railway up --service <your-service-name>
 ```
 
-## Step 7: Configure Railway Service
+## Step 8: Configure Railway Service
 
 1. Go to your [Railway dashboard](https://railway.app/projects)
 2. Select your project
@@ -115,14 +115,14 @@ railway up --service <your-service-name>
 4. Go to "Settings" → "Environment Variables" and verify all variables are set
 5. Go to "Deployments" to monitor the deployment process
 
-## Step 8: Get Your API URL
+## Step 9: Get Your API URL
 
 After successful deployment, you'll have a URL like:
 ```
 https://your-project-name-production.up.railway.app
 ```
 
-## Step 9: Update Your Frontend
+## Step 10: Update Your Frontend
 
 Update the API URL in your chatbot widget:
 
@@ -150,7 +150,7 @@ const apiBaseUrl = window.CHATBOT_API_URL || 'http://localhost:8000';
 window.bookRAGChatbot = new BookRAGChatbot(apiBaseUrl, options);
 ```
 
-## Step 10: Deploy Your Website to Vercel
+## Step 11: Deploy Your Website to Vercel
 
 1. In your Docusaurus project directory:
 
@@ -194,6 +194,11 @@ railway dashboard
 ```
 
 ## Troubleshooting Common Issues
+
+### Issue: Dependency conflicts during deployment
+- This was the issue you encountered
+- Make sure you're using the simplified requirements file I provided above
+- Remove any conflicting packages like langchain, torch, etc. that aren't needed for your API
 
 ### Issue: Deployment fails
 - Check that all environment variables are set
