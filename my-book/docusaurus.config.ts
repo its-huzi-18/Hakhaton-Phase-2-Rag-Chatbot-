@@ -5,9 +5,9 @@ import type * as Preset from '@docusaurus/preset-classic';
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
 const config: Config = {
-  title: 'Physical AI & Humanoid Robotics',
+  title: 'Advanced Robotics & AI',
   tagline: 'Empowering the next generation of AI and Robotics innovators',
-  favicon: 'img/favicon.ico',
+  favicon: 'img/favicon-new.svg',
 
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
   future: {
@@ -111,10 +111,10 @@ const config: Config = {
       respectPrefersColorScheme: true,
     },
     navbar: {
-      title: 'Physical AI & Humanoid Robotics',
+      title: 'Advanced Robotics & AI',
       logo: {
-        alt: 'My Site Logo',
-        src: 'img/logo.svg',
+        alt: 'Advanced Robotics & AI Logo',
+        src: 'img/logo-professional.svg',
       },
       items: [
       ],
@@ -145,7 +145,7 @@ const config: Config = {
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} Physical AI & Humanoid Robotics. All rights reserved.`,
+      copyright: `Copyright © ${new Date().getFullYear()} Advanced Robotics & AI. All rights reserved.`,
     },
     prism: {
       theme: prismThemes.github,
