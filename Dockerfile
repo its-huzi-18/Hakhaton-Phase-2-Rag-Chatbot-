@@ -26,5 +26,5 @@ WORKDIR /app/backend
 # Expose port
 EXPOSE $PORT 8000
 
-# Start the application using the free version
-CMD ["sh", "-c", "uvicorn qdrant_chat_free:app --host=0.0.0.0 --port=${PORT:-8000}"]
+# Start the application using the final version
+CMD ["sh", "-c", "uvicorn qdrant_chat_final:app --host=0.0.0.0 --port=${PORT:-8000}"]

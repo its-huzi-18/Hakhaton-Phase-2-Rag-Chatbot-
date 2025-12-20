@@ -9,6 +9,7 @@ from langchain_core.runnables import RunnablePassthrough
 from langchain_core.prompts import PromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 from langchain_community.llms import HuggingFaceEndpoint
+from langchain_community.embeddings import HuggingFaceEmbeddings
 import uvicorn
 
 # Load environment variables from .env file
@@ -16,7 +17,7 @@ load_dotenv()
 
 # Initialize FastAPI app
 app = FastAPI(
-    title="Book RAG Chatbot with Qdrant - Free Version",
+    title="Book RAG Chatbot with Qdrant - Simple Version",
     description="A chatbot that answers questions based only on the content of a specific book using Qdrant vector database",
     version="2.0.0"
 )
@@ -43,13 +44,12 @@ def initialize_qdrant_store():
     qdrant_api_key = os.getenv("QDRANT_API_KEY")  # Optional - if None, will use local
     local_path = os.getenv("LOCAL_QDRANT_PATH", "./qdrant_data")
 
-    # For Railway's 4GB limit, we'll use a completely different approach
-    # Using a mock embedding function that will work within limits
-    from langchain_community.embeddings import FakeEmbeddings
-
-    # Using a fake embedding model that doesn't require heavy dependencies
-    # This is a placeholder - in practice you'd need to pre-compute embeddings
-    embeddings = FakeEmbeddings(size=384)  # Size compatible with common models
+    # Using a lightweight embedding model that should work within Railway's limits
+    model_name = "sentence-transformers/all-MiniLM-L6-v2"
+    embeddings = HuggingFaceEmbeddings(
+        model_name=model_name,
+        model_kwargs={'device': 'cpu'},
+    )
 
     # Determine if using local or cloud Qdrant
     if qdrant_url:
@@ -144,7 +144,7 @@ async def root():
     """
     Root endpoint to check if the service is running
     """
-    return {"message": "Book RAG Chatbot with Qdrant (Free Version) is running!", "status": "ok"}
+    return {"message": "Book RAG Chatbot with Qdrant (Simple Version) is running!", "status": "ok"}
 
 @app.post("/ask", response_model=AnswerResponse)
 async def ask_question(request: QuestionRequest):

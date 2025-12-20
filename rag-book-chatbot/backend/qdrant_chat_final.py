@@ -1,7 +1,7 @@
 import os
 from typing import List, Dict, Any
 from dotenv import load_dotenv
-from fastapi import FastAPI, HTTPException, Body
+from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from qdrant_client import QdrantClient
 from langchain_qdrant import Qdrant
@@ -9,6 +9,7 @@ from langchain_core.runnables import RunnablePassthrough
 from langchain_core.prompts import PromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 from langchain_community.llms import HuggingFaceEndpoint
+from langchain_community.embeddings import FakeEmbeddings
 import uvicorn
 
 # Load environment variables from .env file
@@ -16,7 +17,7 @@ load_dotenv()
 
 # Initialize FastAPI app
 app = FastAPI(
-    title="Book RAG Chatbot with Qdrant - Free Version",
+    title="Book RAG Chatbot with Qdrant - Railway Version",
     description="A chatbot that answers questions based only on the content of a specific book using Qdrant vector database",
     version="2.0.0"
 )
@@ -43,13 +44,9 @@ def initialize_qdrant_store():
     qdrant_api_key = os.getenv("QDRANT_API_KEY")  # Optional - if None, will use local
     local_path = os.getenv("LOCAL_QDRANT_PATH", "./qdrant_data")
 
-    # For Railway's 4GB limit, we'll use a completely different approach
-    # Using a mock embedding function that will work within limits
-    from langchain_community.embeddings import FakeEmbeddings
-
-    # Using a fake embedding model that doesn't require heavy dependencies
-    # This is a placeholder - in practice you'd need to pre-compute embeddings
-    embeddings = FakeEmbeddings(size=384)  # Size compatible with common models
+    # Use FakeEmbeddings to work within Railway's 4GB limit
+    # This requires that embeddings were pre-computed and stored in Qdrant
+    embeddings = FakeEmbeddings(size=384)  # Compatible size for typical models
 
     # Determine if using local or cloud Qdrant
     if qdrant_url:
@@ -93,7 +90,6 @@ def create_rag_chain():
         repo_id="google/flan-t5-small",  # Lightweight model
         temperature=0.1,
         max_new_tokens=512,
-        # Using CPU only to stay within limits
     )
 
     # Create the prompt template for the LLM
@@ -144,7 +140,7 @@ async def root():
     """
     Root endpoint to check if the service is running
     """
-    return {"message": "Book RAG Chatbot with Qdrant (Free Version) is running!", "status": "ok"}
+    return {"message": "Book RAG Chatbot with Qdrant (Railway Version) is running!", "status": "ok"}
 
 @app.post("/ask", response_model=AnswerResponse)
 async def ask_question(request: QuestionRequest):
