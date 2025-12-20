@@ -13,12 +13,21 @@ RUN apt-get update \
 # Set work directory
 WORKDIR /app
 
-# Copy requirements and install dependencies
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+# Copy the rag-book-chatbot/backend directory with the app and requirements
+COPY rag-book-chatbot/backend/ ./backend/
 
-# Copy application files
+# Install dependencies from the backend directory
+WORKDIR /app/backend
+RUN pip install --no-cache-dir -r railway_requirements.txt
+
+# Change back to app directory
+WORKDIR /app
+
+# Copy the rest of the application
 COPY . .
+
+# Change to backend directory for running the app
+WORKDIR /app/backend
 
 # Expose port
 EXPOSE $PORT 8000
