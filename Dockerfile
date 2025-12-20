@@ -1,15 +1,27 @@
 FROM python:3.11-slim
 
+# Set environment variables
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+
+# Install system dependencies
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+        build-essential \
+    && rm -rf /var/lib/apt/lists/*
+
+# Set work directory
 WORKDIR /app
 
-COPY rag-book-chatbot/backend/railway_requirements.txt .
-RUN pip install --no-cache-dir -r railway_requirements.txt
+# Copy requirements and install dependencies
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
 
-COPY rag-book-chatbot/backend/ .
+# Copy application files
+COPY . .
 
-# Create a default .env file if it doesn't exist
-RUN touch .env
+# Expose port
+EXPOSE $PORT 8000
 
-EXPOSE 8000
-
-CMD ["uvicorn", "qdrant_chat.py:app", "--host", "0.0.0.0", "--port", "8000"]
+# Start the application
+CMD ["sh", "-c", "uvicorn qdrant_chat:app --host=0.0.0.0 --port=${PORT:-8000}"]
