@@ -16,15 +16,9 @@ WORKDIR /app
 # Copy the rag-book-chatbot/backend directory with the app and requirements
 COPY rag-book-chatbot/backend/ ./backend/
 
-# Install dependencies from the backend directory
+# Install dependencies from the backend directory (using the lighter requirements)
 WORKDIR /app/backend
 RUN pip install --no-cache-dir -r railway_requirements.txt
-
-# Change back to app directory
-WORKDIR /app
-
-# Copy the rest of the application
-COPY . .
 
 # Change to backend directory for running the app
 WORKDIR /app/backend
@@ -32,5 +26,5 @@ WORKDIR /app/backend
 # Expose port
 EXPOSE $PORT 8000
 
-# Start the application
-CMD ["sh", "-c", "uvicorn qdrant_chat:app --host=0.0.0.0 --port=${PORT:-8000}"]
+# Start the application using the free version
+CMD ["sh", "-c", "uvicorn qdrant_chat_free:app --host=0.0.0.0 --port=${PORT:-8000}"]
